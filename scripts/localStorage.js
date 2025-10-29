@@ -20,7 +20,7 @@ function submitMatch() {
     resetMatch();
 }
 
-const AppScript = "https://script.google.com/macros/s/AKfycbxruPpv3dsMSAhSqsWkrmdiszOmPaPsOk56jgMhdjoAj1CnIX9zauPULlbYdbbjT5nH/exec";
+const AppScript = "https://script.google.com/macros/s/AKfycbyfIdzf8OCjvNwLbpPhKVyGgyo2G4SsMY2jXv75I_K8bHq9KPmyVYNd31qFt0P_-xLP/exec";
 async function send(data) {
     if(local["matches"] == "") {
         alert('Twin you aint got any data');

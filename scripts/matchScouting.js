@@ -1,6 +1,7 @@
 function initMatch() {
     makeInput("input", "Scouter", "nameInput", [], "preMatch");
     makeInput("input", "Match Number", "matchInput", [], "preMatch");
+    makeInput("input", "Team Number", "teamInput", [], "preMatch");
     makeInput("buttonSelect", "Leave", "leave", ["Yes", "No"], "auto");
     makeInput("counter", "Artifacts Classified", "autoArtifactsInGoalClassified", [], "auto");
     makeInput("counter", "Overflow Artifacts", "autoArtifactsInGoalOverflow", [], "auto");
