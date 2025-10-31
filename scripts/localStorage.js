@@ -12,15 +12,24 @@ function submitMatch() {
     const options = { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
     const formattedTime = now.toLocaleString('en-US', options).replace(',', ' -');
     local.matchData["timestamp"] = formattedTime;
+    local.matchData["compInput"] = "Kentwood";
 
     local.matches.push(local.matchData);
-    local.matchData["matchInput"] += 1;
-    document.getElementById("matchInput").value = Number(document.getElementById("matchInput").value) + 1;
+
+    let prevmatch = Number(local.matchData["matchInput"]);
+    let prevscouter = local.matchData["nameInput"];
+
+    local.matchData = {};
+
+    local.matchData["matchInput"] = prevmatch + 1;
+    local.matchData["nameInput"] = prevscouter;
+
+    setLS();
     showPage(0);
-    resetMatch();
+    initMatch();
 }
 
-const AppScript = "https://script.google.com/macros/s/AKfycbyfIdzf8OCjvNwLbpPhKVyGgyo2G4SsMY2jXv75I_K8bHq9KPmyVYNd31qFt0P_-xLP/exec";
+const AppScript = "https://script.google.com/macros/s/AKfycbyH98lv4q0ZmygXV3W8umWwuVkZVSLXVz8K4VajtRM9b7bJh_fbW-1gwp5V4lTuvl-R/exec";
 async function send(data) {
     if(local["matches"] == "") {
         alert('Twin you aint got any data');

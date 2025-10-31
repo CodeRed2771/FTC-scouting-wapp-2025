@@ -1,4 +1,8 @@
 function initMatch() {
+    for(let cont of document.getElementsByClassName("inputContainer")) {
+        cont.innerHTML = ""
+    }
+    document.getElementById("dih").innerHTML += '<button style="margin-top: 10px;" onclick="submitMatch()">Submit</button>' 
     makeInput("input", "Scouter", "nameInput", [], "preMatch");
     makeInput("input", "Match Number", "matchInput", [], "preMatch");
     makeInput("input", "Team Number", "teamInput", [], "preMatch");
@@ -9,11 +13,6 @@ function initMatch() {
     makeInput("counter", "Overflow Artifacts", "teleopArtifactsInGoalOverflow", [], "teleop");
     makeInput("counter", "Artifacts In Depot", "teleopArtifactsInDepot", [], "teleop");
     makeInput("buttonSelect", "Park", "park", ["Robot Partially In Base", "Robot Fully In Base", "Double Parked (raised)", "No Park"], "teleop", " vert");
-}
-
-function resetMatch() {
-    local.matchData = {};
-    setLS();
 }
 
 function increment(name) {
@@ -50,12 +49,13 @@ function makeInput(type, placeholder, name, options, page, xclass) {
     let inputContainer = document.createElement("div");
     inputContainer.innerHTML = `<p>${placeholder}</p>`
     inputContainer.className = "inputCont" + ( xclass || "" )
-    local.matchData[name] = local.matchData[name] ? local.matchData[name] : "";
+    local.matchData[name] = local.matchData[name] ? local.matchData[name] : (type == "counter" ? 0 : "");
     setLS();
     let container = document.getElementById(page).querySelector(".inputContainer");
     let input = document.createElement(`${type}`);
     input.id = name;
     input.className = `input ${type}`
+    input.value = local.matchData[name];
     //if(input.classList.includes("num")) input.type = "number"
     if(type != "select" || "counter") input.placeholder = placeholder + "...";
     
@@ -63,6 +63,8 @@ function makeInput(type, placeholder, name, options, page, xclass) {
     
     switch (name) {
         case "matchInput":
+            input.type = "number"
+        case "teamInput":
             input.type = "number"
         break;
     }
@@ -80,7 +82,7 @@ function makeInput(type, placeholder, name, options, page, xclass) {
         case "buttonSelect":
     
             for(let option of options) {
-                input.innerHTML += `<button onclick="buttonClick('${name}', '${option}', this)">${option}</button>`
+                input.innerHTML += `<button class="optionbutton" onclick="buttonClick('${name}', '${option}', this)">${option}</button>`
                 input.value = placeholder;
             }
             break;
