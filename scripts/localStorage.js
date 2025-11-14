@@ -27,10 +27,16 @@ function submitMatch() {
     setLS();
     showPage(0);
     initMatch();
+    submitted = false;
 }
-
+let submitted = false;
 const AppScript = "https://script.google.com/macros/s/AKfycbyH98lv4q0ZmygXV3W8umWwuVkZVSLXVz8K4VajtRM9b7bJh_fbW-1gwp5V4lTuvl-R/exec";
 async function send(data) {
+    if(submitted) {
+        alert('chillax brochacho you only need to submit once');
+        return;
+    }
+    submitted = true;
     if(local["matches"] == "") {
         alert('Twin you aint got any data');
     } else {

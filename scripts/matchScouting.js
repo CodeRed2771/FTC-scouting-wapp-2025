@@ -49,7 +49,7 @@ function makeInput(type, placeholder, name, options, page, xclass) {
     let inputContainer = document.createElement("div");
     inputContainer.innerHTML = `<p>${placeholder}</p>`
     inputContainer.className = "inputCont" + ( xclass || "" )
-    local.matchData[name] = local.matchData[name] ? local.matchData[name] : (type == "counter" ? 0 : "");
+    local.matchData[name] = local.matchData[name] ? local.matchData[name] : (type == "buttonSelect" ? options[options.length - 1] : (type == "counter" ? 0 : ""));
     setLS();
     let container = document.getElementById(page).querySelector(".inputContainer");
     let input = document.createElement(`${type}`);
