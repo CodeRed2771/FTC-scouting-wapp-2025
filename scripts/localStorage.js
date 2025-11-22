@@ -12,7 +12,7 @@ function submitMatch() {
     const options = { month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true };
     const formattedTime = now.toLocaleString('en-US', options).replace(',', ' -');
     local.matchData["timestamp"] = formattedTime;
-    local.matchData["compInput"] = "Kentwood";
+    local.matchData["compInput"] = "Fruitport";
 
     local.matches.push(local.matchData);
 
