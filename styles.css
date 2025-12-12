@@ -24,7 +24,8 @@ body {
     width: 100vw;
 }
 
-.matchScout {
+.matchScout,
+.pitScout {
     width: 95% !important;
     height: 90% !important;
     max-width: 800px;

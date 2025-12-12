@@ -14,6 +14,7 @@
     <div class="home page">
         <img class="logo" src="assets/logo.png">
         <button onclick="showParentPage('matchScout')">Match Scouting</button>
+        <button onclick="showParentPage('pitScout')">Pit Scouting</button>
         <button onclick="send(local['matches']);">Submit Matches</button>
     </div>
 
@@ -32,11 +33,23 @@
         </div>
         <div class="scouting-page" id="postMatch">
             <h1>Postmatch</h1>
-            <div id="dih" class="inputContainer">
+            <div class="dih inputContainer">
             </div>
         </div>
         <button class="backButton" onclick="pageNav(-1)">Back</button>
         <button class="forwardButton" onclick="pageNav(1)">Next</button>
+    </div>
+
+    <div class="pitScout page">
+        <div class="scouting-page" id="pitScout">
+            <h1>Pit Scouting</h1>
+            <div id="ifeelthepaininhisdih" class="inputContainer">
+
+            </div>
+            <div class="dih inputContainer">
+            </div>
+        </div>
+        <button class="backButton" onclick="pageNav(-1)">Back</button>
     </div>
     
     <script src="scripts/navigation.js"></script>

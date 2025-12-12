@@ -2,7 +2,9 @@ function initMatch() {
     for(let cont of document.getElementsByClassName("inputContainer")) {
         cont.innerHTML = ""
     }
-    document.getElementById("dih").innerHTML += '<button style="margin-top: 10px;" onclick="submitMatch()">Submit</button>' 
+    document.getElementsByClassName("dih")[0].innerHTML += '<button style="margin-top: 10px;" onclick="submitMatch()">Submit</button>'
+    document.getElementsByClassName("dih")[1].innerHTML += '<button style="margin-top: 10px;" onclick="submitMatch()">Submit</button>'
+
     makeInput("input", "Scouter", "nameInput", [], "preMatch");
     makeInput("input", "Match Number", "matchInput", [], "preMatch");
     makeInput("input", "Team Number", "teamInput", [], "preMatch");
@@ -13,6 +15,18 @@ function initMatch() {
     makeInput("counter", "Overflow Artifacts", "teleopArtifactsInGoalOverflow", [], "teleop");
     makeInput("counter", "Artifacts In Depot", "teleopArtifactsInDepot", [], "teleop");
     makeInput("buttonSelect", "Park", "park", ["Robot Partially In Base", "Robot Fully In Base", "Double Parked (raised)", "No Park"], "teleop", " vert");
+    
+    makeInput("input", "Team Number", "numberInput", [], "pitScout");
+    makeInput("buttonSelect", "Can the robot double park?", "doublepark", ["Yes", "No"], "pitScout", "");
+    document.getElementById("ifeelthepaininhisdih").innerHTML += "<img src='/assets/startingpositions.jpg'>"
+    makeInput("buttonSelect", "Where does the robot prefer to start?", "startpos", ["A", "B"], "pitScout", "");
+    makeInput("buttonSelect", "Can the robot leave in auto?", "autoleave", ["Yes", "No"], "pitScout", "");
+    makeInput("counter", "How many artifacts can the robot score in auto?", "autoArtifacts", [], "pitScout");
+
+    document.getElementById("numberInput").oninput = () => {
+        local.matchData["numberInput"] = document.getElementById("numberInput").value;
+        setLS();
+    };
 }
 
 function increment(name) {
@@ -49,7 +63,7 @@ function makeInput(type, placeholder, name, options, page, xclass) {
     let inputContainer = document.createElement("div");
     inputContainer.innerHTML = `<p>${placeholder}</p>`
     inputContainer.className = "inputCont" + ( xclass || "" )
-    local.matchData[name] = local.matchData[name] ? local.matchData[name] : (type == "buttonSelect" ? options[options.length - 1] : (type == "counter" ? 0 : ""));
+    //local.matchData[name] = local.matchData[name] ? local.matchData[name] : (type == "buttonSelect" ? options[options.length - 1] : (type == "counter" ? 0 : ""));
     setLS();
     let container = document.getElementById(page).querySelector(".inputContainer");
     let input = document.createElement(`${type}`);
@@ -64,9 +78,19 @@ function makeInput(type, placeholder, name, options, page, xclass) {
     switch (name) {
         case "matchInput":
             input.type = "number"
+            break;
         case "teamInput":
             input.type = "number"
-        break;
+            break;
+        case "numberInput":
+            input.type = "number";
+
+            console.log("lowk js got created")
+
+
+            break;
+        default: 
+            break;
     }
     
     switch (type) {
@@ -80,7 +104,6 @@ function makeInput(type, placeholder, name, options, page, xclass) {
             input.innerHTML += `<button onclick="increment('${name}')">-</button><p class="cval">0</p><button onclick="decrement('${name}')">+</button>`
             break; 
         case "buttonSelect":
-    
             for(let option of options) {
                 input.innerHTML += `<button class="optionbutton" onclick="buttonClick('${name}', '${option}', this)">${option}</button>`
                 input.value = placeholder;
@@ -90,10 +113,12 @@ function makeInput(type, placeholder, name, options, page, xclass) {
             break;
     }
 
-    input.oninput = () => {
+
+    input.addEventListener("input", () => {
+        console.log("Input event triggered, value:", input.value);
         local.matchData[name] = input.value;
         setLS();
-    }
+    });
 
     inputContainer.appendChild(input);
     container.appendChild(inputContainer);
